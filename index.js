@@ -100,6 +100,11 @@ async function run() {
         res.send(result)
     });
 
+    app.post('/wishlist', async(req, res) => {
+      const cartItem = req.body;
+      const result = await wishlistCollection.insertOne(cartItem);
+      res.send(result);
+    });
 
 
 
