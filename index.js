@@ -68,6 +68,23 @@ async function run() {
     })
 
 
+    app.get('/allProducts', async(req, res) => {
+      const result = await allProductsCollection.find().toArray();
+      res.send(result);
+    })
+
+    // Getting all product by id for the product details page
+    app.get('/allProducts/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id)};
+      const options = {
+        projection: {_id: 1, image:1, title:1, description:1, price:1, sellerName:1, date:1, reviews:1, status:1, quantity:1}
+      };
+      const result = await allProductsCollection.findOne(query, options);
+      res.send(result);
+      
+    })
+
     
 
 
