@@ -68,43 +68,7 @@ async function run() {
     })
 
 
-    app.get('/allProducts', async(req, res) => {
-      const result = await allProductsCollection.find().toArray();
-      res.send(result);
-    })
-
-    // Getting all product by id for the product details page
-    app.get('/allProducts/:id', async(req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id)};
-      const options = {
-        projection: {_id: 1, image:1, title:1, description:1, price:1, sellerName:1, date:1, reviews:1, status:1, quantity:1}
-      };
-      const result = await allProductsCollection.findOne(query, options);
-      res.send(result);
-      
-    })
-
-    app.post('/cart', async(req, res) => {
-      const cartItem = req.body;
-      const result = await cartCollection.insertOne(cartItem);
-      res.send(result);
-    });
-
-    // Get cart data for specific user
-    app.get('/cart' , async(req, res)=>{
-      const email = req.query.email;
-      const query = {email : email};
-      const cursor = cartCollection.find(query);
-        const result = await cursor.toArray();
-        res.send(result)
-    });
-
-    app.post('/wishlist', async(req, res) => {
-      const cartItem = req.body;
-      const result = await wishlistCollection.insertOne(cartItem);
-      res.send(result);
-    });
+    
 
 
 
