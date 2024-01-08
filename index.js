@@ -106,6 +106,15 @@ async function run() {
       res.send(result);
     });
 
+        // Get wishlist data for specific user
+        app.get('/wishlist' , async(req, res)=>{
+          const email = req.query.email;
+          const query = {email : email};
+          const cursor = wishlistCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result)
+        });
+
 
 
 
