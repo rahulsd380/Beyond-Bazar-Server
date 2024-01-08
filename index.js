@@ -85,7 +85,21 @@ async function run() {
       
     })
 
-    
+    app.post('/cart', async(req, res) => {
+      const cartItem = req.body;
+      const result = await cartCollection.insertOne(cartItem);
+      res.send(result);
+    });
+
+    // Get cart data for specific user
+    app.get('/cart' , async(req, res)=>{
+      const email = req.query.email;
+      const query = {email : email};
+      const cursor = cartCollection.find(query);
+        const result = await cursor.toArray();
+        res.send(result)
+    });
+
 
 
 
